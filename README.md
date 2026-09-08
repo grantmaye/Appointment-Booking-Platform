@@ -4,6 +4,8 @@
 
 A studio appointment experience with an editorial cream, burgundy, and peach design. Choose a session, provider, and opening; confirm, reschedule, or cancel it through a GraphQL API backed by PostgreSQL.
 
+![Application screenshot](docs/images/dashboard.png)
+
 ## Run locally
 
 Node 22.13 or newer:

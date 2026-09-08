@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useDialog } from './use-dialog';
 import { ArrowRight, Check, Clock, MoveUpRight, X } from 'lucide-react';
 import { request } from '@/lib/client';
 import type { Appointment, services as serviceType, providers as providerType } from '@/lib/model';
@@ -28,6 +29,8 @@ export default function Booking() {
     [editing, setEditing] = useState<Appointment | null>(null),
     [cancel, setCancel] = useState<Appointment | null>(null),
     [requestKey, setRequestKey] = useState('');
+  const closeDialog = useCallback(() => setCancel(null), []);
+  useDialog(Boolean(cancel), closeDialog);
   async function refresh() {
     const r = await request<{ dashboard: Data }>(query);
     setData(r.dashboard);
