@@ -104,7 +104,7 @@ export default function Booking() {
     <div className="atelier">
       <header>
         <a className="brand" href="/">
-          atelier<span>TIME, WELL SPENT.</span>
+          atelier
         </a>
         <nav>
           <a href="#booking">
@@ -117,7 +117,6 @@ export default function Booking() {
       <main>
         <section className="hero">
           <div>
-            <p className="eyebrow">A LITTLE SPACE FOR YOUR NEXT BIG THING</p>
             <h1>
               Good things
               <br />
@@ -136,12 +135,7 @@ export default function Booking() {
             <div className="orbit one" />
             <div className="orbit two" />
             <div className="orbit three" />
-            <span className="art-top">
-              LESS RUSH.
-              <br />
-              MORE INTENTION.
-            </span>
-            <span className="art-bottom">A / 01</span>
+
             <span className="art-word">
               make
               <br />
@@ -157,7 +151,6 @@ export default function Booking() {
         </div>
         <section id="booking" className="booking-section">
           <div className="section-title">
-            <span>01 / THE APPOINTMENT</span>
             <h2>{editing ? 'A change of plans.' : 'Let’s find your moment.'}</h2>
             <p>
               {editing
@@ -296,7 +289,6 @@ export default function Booking() {
                 </p>
                 <form className="booking-summary" onSubmit={submit}>
                   <div>
-                    <span>YOUR SESSION</span>
                     <h3>{service?.name}</h3>
                     <p>
                       {provider?.name} · {service?.duration} minutes
@@ -354,13 +346,11 @@ export default function Booking() {
         </section>
         <section id="appointments" className="appointments">
           <div className="section-title">
-            <span>02 / YOUR CALENDAR</span>
             <h2>Something to look forward to.</h2>
             <p>Your bookings stay here when you return in this browser.</p>
           </div>
           {!data?.appointments.length ? (
             <div className="empty">
-              <span>NOTHING ON THE CALENDAR. YET.</span>
               <p>Make a little room for yourself above.</p>
             </div>
           ) : (
@@ -433,7 +423,6 @@ export default function Booking() {
         </section>
       </main>
       <footer>
-        <span>atelier / A PORTFOLIO BOOKING EXPERIENCE</span>
         <span>{data?.storageMode ?? 'Connecting'} · Fictional providers</span>
       </footer>
       {cancel && (
