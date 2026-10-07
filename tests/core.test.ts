@@ -12,6 +12,7 @@ test('booking race, replay, overlap, atomic reschedule, cancellation and workspa
     w = crypto.randomUUID(),
     other = crypto.randomUUID(),
     api = createApi();
+  await api.start();
   try {
     await s.initialize(w);
     await s.initialize(other);
@@ -29,6 +30,13 @@ test('booking race, replay, overlap, atomic reschedule, cancellation and workspa
     ]);
     assert.equal(results.filter((r) => r.status === 'fulfilled').length, 1);
     const a = (await s.dashboard(w)).appointments[0];
+    await assert.rejects(s.change(w, 'OWNER', a.id, 1, ''), /Select a valid appointment/);
+    assert.deepEqual((await s.dashboard(w)).appointments[0], a);
+    assert.equal(
+      (await s.slots(w, 'maya', 'strategy', days()[0])).find((x) => x.startsAt === a.startsAt)
+        ?.available,
+      false,
+    );
     const success = results[0].status === 'fulfilled';
     if (success) {
       assert.equal((await s.book(w, 'OWNER', input)).id, a.id);

@@ -159,7 +159,7 @@ export class Service {
       if (new Date(old.startsAt) <= new Date())
         throw new DomainError('Past appointments cannot be changed.');
       const service = services.find((s) => s.id === old.serviceId)!;
-      if (startsAt) {
+      if (startsAt !== null) {
         validateSlot(old.providerId, old.serviceId, startsAt);
         await this.ensureFree(tx, workspace, old.providerId, startsAt, service.duration, id);
       }
@@ -171,17 +171,19 @@ export class Service {
       const updated: Appointment = {
         ...old,
         startsAt: startsAt ?? old.startsAt,
-        endsAt: startsAt
-          ? new Date(new Date(startsAt).getTime() + service.duration * 60000).toISOString()
-          : old.endsAt,
-        status: startsAt ? 'CONFIRMED' : 'CANCELLED',
+        endsAt:
+          startsAt !== null
+            ? new Date(new Date(startsAt).getTime() + service.duration * 60000).toISOString()
+            : old.endsAt,
+        status: startsAt !== null ? 'CONFIRMED' : 'CANCELLED',
         version: old.version + 1,
         events: [
           ...old.events,
           {
-            kind: startsAt ? 'RESCHEDULED' : 'CANCELLED',
+            kind: startsAt !== null ? 'RESCHEDULED' : 'CANCELLED',
             at: now,
-            detail: startsAt ? `${old.startsAt} → ${startsAt}` : `Cancelled ${old.startsAt}`,
+            detail:
+              startsAt !== null ? `${old.startsAt} → ${startsAt}` : `Cancelled ${old.startsAt}`,
           },
         ],
       };
@@ -190,7 +192,7 @@ export class Service {
         id,
         JSON.stringify(updated),
       ]);
-      if (startsAt) await this.claim(tx, workspace, updated, service.duration);
+      if (startsAt !== null) await this.claim(tx, workspace, updated, service.duration);
       return updated;
     });
   }
