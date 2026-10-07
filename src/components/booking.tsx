@@ -136,7 +136,6 @@ export default function Booking() {
             <div className="orbit two" />
             <div className="orbit three" />
 
-
             <span className="art-word">
               make
               <br />
@@ -152,7 +151,6 @@ export default function Booking() {
         </div>
         <section id="booking" className="booking-section">
           <div className="section-title">
-
             <h2>{editing ? 'A change of plans.' : 'Let’s find your moment.'}</h2>
             <p>
               {editing
@@ -291,7 +289,6 @@ export default function Booking() {
                 </p>
                 <form className="booking-summary" onSubmit={submit}>
                   <div>
-
                     <h3>{service?.name}</h3>
                     <p>
                       {provider?.name} · {service?.duration} minutes
@@ -349,13 +346,11 @@ export default function Booking() {
         </section>
         <section id="appointments" className="appointments">
           <div className="section-title">
-
             <h2>Something to look forward to.</h2>
             <p>Your bookings stay here when you return in this browser.</p>
           </div>
           {!data?.appointments.length ? (
             <div className="empty">
-
               <p>Make a little room for yourself above.</p>
             </div>
           ) : (
@@ -428,7 +423,6 @@ export default function Booking() {
         </section>
       </main>
       <footer>
-
         <span>{data?.storageMode ?? 'Connecting'} · Fictional providers</span>
       </footer>
       {cancel && (
